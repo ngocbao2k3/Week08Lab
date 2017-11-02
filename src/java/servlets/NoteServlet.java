@@ -1,10 +1,11 @@
 package servlets;
 
 import businesslogic.NoteService;
-import domainmodel.Note;
+import domainmodel.Notes;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -23,16 +24,16 @@ public class NoteServlet extends HttpServlet {
         if (action != null && action.equals("view")) {
             int selectedNoteId = Integer.parseInt(request.getParameter("selectedNoteId"));
             try {
-                Note note = ns.get(selectedNoteId);
+                Notes note = ns.get(selectedNoteId);
                 request.setAttribute("selectedNote", note);
             } catch (Exception ex) {
                 Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
-        ArrayList<Note> notes = null;        
+        List<Notes> notes = null;        
         try {
-            notes = (ArrayList<Note>) ns.getAll();
+            notes = (List<Notes>) ns.getAll();
         } catch (Exception ex) {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -69,9 +70,9 @@ public class NoteServlet extends HttpServlet {
             request.setAttribute("errorMessage", "Whoops.  Could not perform that action.");
         }
         
-        ArrayList<Note> notes = null;
+        List<Notes> notes = null;
         try {
-            notes = (ArrayList<Note>) ns.getAll();
+            notes = (List<Notes>) ns.getAll();
         } catch (Exception ex) {
             Logger.getLogger(NoteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
